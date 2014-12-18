@@ -24,19 +24,32 @@ from bs4 import BeautifulSoup
 commentTimeLimit = '24 hrs'
 headers = {'User-Agent': 'WebScrapperTest'}
 
-def UI(*args):
+def UI(subreddits = [], minPostScore = 500, minCommentScore = 200):
     """ Display manager state, user options. Return user input to main """
     # Can take args from main: most often the current Manager state
     # Will return list of options to main, typically desired Manager state (or exit)
     # If manager doesn't like something, or user interrupt, main will call UI with some arg flags
-    
-    if not args:
-        print "Welcome! Select an option from the below"
-        print "<Options>"
-        menuChoice = raw_input(">")
-    # Do a bunch of stuff
-    
-    return UIreturn
+    menuChoice = "welcommenSie"
+    while menuChoice != "1":
+        if menuChoice == "welcommenSie":
+            print "Welcome! Select an option from the below\n"
+        print "1: Run the program"
+        print "2: Add subreddits.",
+        print " Currently tracking", subreddits
+        print "3: Change post/comment minimums",
+        print " Post Score: %d Comment Score: %d" % (minPostScore, minCommentScore)
+        menuChoice = raw_input("> ")
+        if menuChoice == "2":
+            print "List desired subreddits, separated by spaces"
+            desiredSubs = raw_input("> ")
+            for sub in desiredSubs.split():
+                subreddits.append(sub)
+        elif menuChoice == "3":
+            minPostScore = int(raw_input("Enter minimum post score > "))
+            minCommentScore = int(raw_input("Enter minimum comment score > "))
+        elif menuChoice != "1":
+            print "Error, enter a number broham"
+    return subreddits, minPostScore, minCommentScore
 
 class Manager:
     def __init__(self):
@@ -45,8 +58,7 @@ class Manager:
     def __add_sub(self, sub, scores):
         if sub in self.subDict.keys():
             return 'ERROR: already exists'
-        elif # Check if reddit.com/r/<sub> exists
-            pass
+        #elif # Check if reddit.com/r/<sub> exists
         else:
             self.subDict[sub] = Subreddit(sub, scores[0], scores[1])
     def add_dictSubs(self, subDict):
@@ -57,10 +69,11 @@ class Manager:
     def run(self):
         pass
         #loop while no user interrupt
-        while(#no user input)
-            #pass control to each subreddit's run command in turn
-            for sub in self.subList.values():
-                sub.run()
+        
+        #while(no user input)
+        #    pass control to each subreddit's run command in turn
+        #    for sub in self.subList.values():
+        #        sub.run()
         #any additional maintanence?
         #Screen output of downloads and whatnot
     def getState(self):
@@ -115,8 +128,8 @@ def main():
         theManager.add(sub)
     # Output from attempt to add subs
     # Output current manager state: What it will be downloading from
-    while # no user input:
-        theManager.run()
+    #while # no user input:
+    #    theManager.run()
     print "Keyboard interrupt"
 
 if __name__ == '__main__':
